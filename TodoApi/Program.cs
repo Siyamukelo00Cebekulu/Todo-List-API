@@ -3,12 +3,17 @@ using TodoApi;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// Authentication and Authorization
+builder.Services.AddAuthentication().AddJwtBearer();
+builder.Services.AddAuthorization();
+
 // Dependency Injection.
 builder.Services.AddDbContext<TodoDb>(opt => opt.UseInMemoryDatabase("TodoList"));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 
 //Configure Swagger middleware
+builder.Services.AddCors();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddOpenApiDocument(config =>
 {
@@ -18,6 +23,11 @@ builder.Services.AddOpenApiDocument(config =>
 });
 
 var app = builder.Build();
+
+
+app.UseCors();
+app.UseAuthentication();
+app.UseAuthorization();
 
 // Enabling Swagger only in Development Environment
 if (app.Environment.IsDevelopment())
@@ -31,6 +41,9 @@ if (app.Environment.IsDevelopment())
         config.DocExpansion = "list";
     });
 }
+
+
+// CRUD OPERATIONS
 
 // Get all items in Database
 app.MapGet("/todoitems", async (TodoDb db) =>
