@@ -56,9 +56,9 @@ A secure RESTful API for managing personal to-do lists with user authentication,
    dotnet run
    ```
 
-The API will start on `https://localhost:5001` (or `http://localhost:5000` for HTTP).
+The API will start on `https://localhost:<port-number>` (or `http://localhost:<port-number>` for HTTP).
 
-3. Access the Swagger UI at: `https://localhost:5001/swagger`
+3. Access the Swagger UI at: `https://localhost:<port-number>/swagger`
 
 ## API Endpoints
 
